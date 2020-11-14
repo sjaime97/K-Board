@@ -22,6 +22,7 @@ const styles = {
     width: 300,
     padding: 8,
     marginRight: 8,
+    height: "100%"
   },
 };
 
