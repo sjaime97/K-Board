@@ -3,7 +3,8 @@ import Icon from "@material-ui/core/Icon";
 import Card from "@material-ui/core/Card";
 import TextArea from "react-textarea-autosize";
 import Button from "@material-ui/core/Button";
-
+import { connect } from "react-redux";
+import { addList, addCard } from "../actions";
 class TrelloActionButton extends React.Component {
   state = {
     formOpen: false,
@@ -25,6 +26,26 @@ class TrelloActionButton extends React.Component {
       text: e.target.value,
     });
   };
+
+  handleAddList = () => {
+    const { dispatch } = this.props;
+    const { text } = this.state;
+
+    if (text !== undefined && text !== "") {
+      dispatch(addList(text));
+      this.setState({text: ""});
+    }
+  };
+
+  handleAddCard = () => {
+    const { dispatch, listID } = this.props;
+    const { text } = this.state;
+
+    if (text !== undefined && text !== "") {
+      dispatch(addCard(listID, text));
+      this.setState({text: ""});
+    }
+  }
 
   renderAddButton = () => {
     const { list } = this.props;
@@ -57,32 +78,38 @@ class TrelloActionButton extends React.Component {
 
     return (
       <div>
-        <Card style ={{
-      
-          minHeight: 80,
-          minWidth: 272,
-          padding: "6px 8px 2px"
-        }}>
+        <Card
+          style={{
+            minHeight: 80,
+            minWidth: 272,
+            padding: "6px 8px 2px",
+          }}
+        >
           <TextArea
             placeholder={placeholder}
             autoFocus
             onBlur={this.closeForm}
             value={this.state.text}
             onChange={this.handleInputChange}
-            style= {{
-              resize:"none",
-              width:"100%",
+            style={{
+              resize: "none",
+              width: "100%",
               outline: "none",
               overlfow: "hidden",
-              border: "none"
+              border: "none",
             }}
           />
         </Card>
         <div style={styles.formButtonGroup}>
-          <Button variant="contained" style = {{color: "white", backgroundColor:"#5aac44"}}>
-          {buttonTitle}{""}
+          <Button
+            onMouseDown={list ? this.handleAddList : this.handleAddCard}
+            variant="contained"
+            style={{ color: "white", backgroundColor: "#5aac44" }}
+          >
+            {buttonTitle}
+            {""}
           </Button>
-          <Icon style={{marginLeft: 8, cursor:"pointer"}}>close</Icon>
+          <Icon style={{ marginLeft: 8, cursor: "pointer" }}>close</Icon>
         </div>
       </div>
     );
@@ -103,11 +130,11 @@ const styles = {
     width: 272,
     paddingLeft: 10,
   },
-  formButtonGroup:{
+  formButtonGroup: {
     marginTop: 8,
     display: "flex",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 };
 
-export default TrelloActionButton;
+export default connect()(TrelloActionButton);
