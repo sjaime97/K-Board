@@ -2,4 +2,11 @@ Stopped at:
 https://youtu.be/O_0wGvx85GE
 
 
-- Guy was messing around with css styling
+ TODO:
+ - Editing list title
+ - Add button to remove list
+ - Editing card text
+ - Button to remove card
+ - Connect to DynamoDB  
+ - Styling (very end)
+ - Move lists (very end)
