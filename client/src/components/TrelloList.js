@@ -2,6 +2,8 @@ import React from "react";
 import TrelloCard from "./TrelloCard";
 import TrelloActionButton from "./TrelloActionButton";
 import { Droppable } from "react-beautiful-dnd";
+import Icon from "@material-ui/core/Icon";
+
 const TrelloList = (props) => {
   const { title, cards, listID } = props;
   return (
@@ -12,9 +14,17 @@ const TrelloList = (props) => {
           ref={provided.innerRef}
           style={styles.container}
         >
-          <h4>{title}</h4>
+          <div style={styles.titleContainer}>
+            <h4>{title}</h4>
+            <Icon style={styles.deleteButton}>delete</Icon>
+          </div>
           {cards.map((card, index) => (
-            <TrelloCard key={card.id} text={card.text} id={card.id} index={index}/>
+            <TrelloCard
+              key={card.id}
+              text={card.text}
+              id={card.id}
+              index={index}
+            />
           ))}
           {provided.placeholder}
           <TrelloActionButton listID={listID} />
@@ -32,6 +42,18 @@ const styles = {
     padding: 8,
     marginRight: 8,
     height: "100%",
+  },
+  titleContainer: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    cursor: "pointer",
+  },
+  deleteButton: {
+    cursor: "pointer",
+    opacity: "0.6",
   },
 };
 
