@@ -1,6 +1,6 @@
 import { CONSTANTS } from "../actions";
 
-const initialState = { userID: null, status: false };
+const initialState = { userID: null, isAuthenticated: false };
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.SIGN_IN:
