@@ -35,7 +35,7 @@ class TrelloBoard extends Component {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div>
-          <h1>K-Board</h1>
+          <h1 style={styles.boardTitle}>Web Development Tasks</h1>
           <div style={styles.listContainer}>
             {lists.map((list) => (
               <TrelloList
@@ -59,6 +59,7 @@ const styles = {
     flexDirection: "row",
     marginRight: 8,
   },
+  boardTitle: {},
 };
 
 const mapStateToProps = (state) => ({
