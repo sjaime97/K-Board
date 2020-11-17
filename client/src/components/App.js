@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import TrelloActionButton from "./TrelloActionButton";
 import { DragDropContext } from "react-beautiful-dnd";
 import { sort } from "../actions";
-import AuthForm from "./AuthForm";
+//import AuthForm from "./AuthForm";
 
 class App extends Component {
   onDragEnd = (result) => {
@@ -26,9 +26,9 @@ class App extends Component {
     );
   };
 
-  testAuthForm = () => {
-    return <AuthForm />;
-  };
+//   testAuthForm = () => {
+//     return <AuthForm />;
+//   };
 
   render() {
     const { lists } = this.props;
