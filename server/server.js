@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const port = 5000;
+const cors = require("cors");
 const mockDatabase = require("./mockData");
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // Returns a list of boards given a userID
 app.get("/boards", (req, res) => {
