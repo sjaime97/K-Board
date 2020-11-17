@@ -1,6 +1,5 @@
 const mockDatabase = {
-  userID1: {
-    username: "jon",
+  jonathan: {
     userBoards: [
       {
         boardID: "hash1",
@@ -38,8 +37,7 @@ const mockDatabase = {
       },
     ],
   },
-  userID2: {
-    username: "Mary",
+  userID1: {
     userBoards: [
       {
         boardID: "hash1",
@@ -78,5 +76,3 @@ const mockDatabase = {
     ],
   },
 };
-
-module.exports = mockDatabase;

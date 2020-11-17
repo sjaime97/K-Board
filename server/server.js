@@ -4,6 +4,7 @@ const port = 5000;
 const cors = require("cors");
 const mockDatabase = require("./mockData");
 const bodyParser = require("body-parser");
+const dbClient = require("./dynamoDB");
 
 app.use(bodyParser.json());
 app.use(cors());
