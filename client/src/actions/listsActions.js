@@ -6,6 +6,13 @@ export const addList = (title) => {
   };
 };
 
+export const deleteList = (listID) => {
+  return {
+    type: CONSTANTS.DELETE_LIST,
+    payload: { listID },
+  };
+};
+
 export const sort = (
   droppableIdStart,
   droppableIdEnd,
@@ -16,11 +23,11 @@ export const sort = (
   return {
     type: CONSTANTS.DRAG_HAPPENED,
     payload: {
-        droppableIdStart,
-        droppableIdEnd,
-        droppableIndexStart,
-        droppableIndexEnd,
-        draggableId
+      droppableIdStart,
+      droppableIdEnd,
+      droppableIndexStart,
+      droppableIndexEnd,
+      draggableId,
     },
   };
 };

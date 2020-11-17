@@ -84,14 +84,19 @@ const listsReducer = (state = initialState, action) => {
         const card = listStart.cards.splice(droppableIndexStart, 1);
 
         // find thelist where the drad ended
-        const listEnd = state.find(list=> droppableIdEnd === list.id);
+        const listEnd = state.find((list) => droppableIdEnd === list.id);
 
         // put the card int the new list
         listEnd.cards.splice(droppableIndexEnd, 0, ...card);
-        
       }
 
       return newState2;
+    case CONSTANTS.DELETE_LIST:
+      const targetListID = action.payload.listID;
+
+      const newListState = state.filter((value) => value.id !== targetListID);
+
+      return newListState;
     default:
       return state;
   }
