@@ -1,3 +1,4 @@
+const { AlexaForBusiness } = require("aws-sdk");
 const AWS = require("aws-sdk");
 
 AWS.config.update({
@@ -8,14 +9,113 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 async function getBoard(userID, boardID) {
-  // return docClient.get()
+  const params = {
+    TableName: "UserBoards",
+    Key: {
+      userID: userID,
+    },
+  };
+
+  try {
+    // Query the "UserBoards" table to get user data
+    const data = await docClient.get(params).promise();
+    const { Item } = data;
+    const list = Item.userBoards;
+
+    // Iterate through the user's board list and find the
+    // target board
+    let curr;
+    for (let i = 0; i < list.length; i++) {
+      curr = list[i];
+      if (curr.boardID === boardID) {
+        return curr;
+      }
+    }
+
+    return undefined;
+  } catch (error) {
+    console.log(
+      "Unable to read item. Error JSON:",
+      JSON.stringify(error, null, 2)
+    );
+    return undefined;
+  }
 }
 
-async function getListOfBoards(userID) {
-  // return docClient.get()
+async function getListOfBoardNames(userID) {
+  const params = {
+    TableName: "UserBoards",
+    Key: {
+      userID: userID,
+    },
+  };
+
+  try {
+    // Query the "UserBoards" table to get user data
+    const data = await docClient.get(params).promise();
+    const { Item } = data;
+    const userBoards = Item.userBoards;
+
+    const listOfBoardNames = userBoards.map((board) => ({
+      boardID: board.boardID,
+      boardName: board.boardName,
+    }));
+
+    return listOfBoardNames;
+  } catch (error) {
+    console.log(
+      "Unable to read item. Error JSON:",
+      JSON.stringify(error, null, 2)
+    );
+    return undefined;
+  }
+}
+
+async function updateBoardData(userID, boardID, newData) {
+  let params = {
+    TableName: "UserBoards",
+    Key: {
+      userID: userID,
+    },
+  };
+
+  try {
+    // Query the "UserBoards" table to get user data
+    const data = await docClient.get(params).promise();
+    const { Item } = data;
+    const userBoards = Item.userBoards;
+
+    // Iterate through the user's board list and find the
+    // target board
+    let curr;
+    for (let i = 0; i < userBoards.length; i++) {
+      curr = userBoards[i];
+      if (curr.boardID === boardID) {
+        curr.boardData = newData;
+        break;
+      } else if (i === userBoards.length - 1) {
+        return "error";
+      }
+    }
+
+    params = {
+      TableName: "UserBoards",
+      Item: Item,
+    };
+    const response = await docClient.put(params).promise();
+
+    return "success";
+  } catch (error) {
+    console.log(
+      "Unable to read item. Error JSON:",
+      JSON.stringify(error, null, 2)
+    );
+    return "error";
+  }
 }
 
 module.exports = {
   getBoard,
-  getListOfBoards,
+  getListOfBoardNames,
+  updateBoardData,
 };
