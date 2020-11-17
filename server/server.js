@@ -42,13 +42,13 @@ app.post("/board", (req, res) => {
 
   // If any of them are undefined
   if (!userID || !boardID || !data) {
-    return res.status(400);
+    return res.sendStatus(400);
   }
 
   // TODO: Query DynamoDB to save new data
 
   // If succeeded, return 200
-  return res.status(200);
+  return res.sendStatus(200);
 });
 
 // Returns 1 board given the userID and boardID
@@ -72,7 +72,9 @@ app.get("/board", (req, res) => {
   for (let i = 0; i < boards.length; i++) {
     const board = boards[i];
     if (board.boardID === boardID) {
-      return res.status(200).send({ data: board.boardData });
+      return res
+        .status(200)
+        .send({ boardTitle: board.boardName, data: board.boardData });
     }
   }
 
