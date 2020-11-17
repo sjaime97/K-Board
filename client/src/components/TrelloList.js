@@ -3,9 +3,17 @@ import TrelloCard from "./TrelloCard";
 import TrelloActionButton from "./TrelloActionButton";
 import { Droppable } from "react-beautiful-dnd";
 import Icon from "@material-ui/core/Icon";
+import { connect } from "react-redux";
+import { deleteList } from "../actions";
 
 const TrelloList = (props) => {
-  const { title, cards, listID } = props;
+  const { title, cards, listID, dispatch } = props;
+
+  const handleDelete = (listID) => {
+    console.log("Deleting: ", listID);
+    dispatch(deleteList(listID));
+  };
+
   return (
     <Droppable droppableId={String(listID)}>
       {(provided) => (
@@ -16,7 +24,12 @@ const TrelloList = (props) => {
         >
           <div style={styles.titleContainer}>
             <h4>{title}</h4>
-            <Icon style={styles.deleteButton}>delete</Icon>
+            <Icon
+              onClick={() => handleDelete(listID)}
+              style={styles.deleteButton}
+            >
+              delete
+            </Icon>
           </div>
           {cards.map((card, index) => (
             <TrelloCard
@@ -57,4 +70,4 @@ const styles = {
   },
 };
 
-export default TrelloList;
+export default connect()(TrelloList);
