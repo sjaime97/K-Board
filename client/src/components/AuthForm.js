@@ -104,7 +104,7 @@ class AuthForm extends React.Component {
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
-        <button onClick={this.handleSignUp}>Sign In</button>
+        <button onClick={this.handleSignUp}>Sign Up</button>
         <br />
         <button onClick={() => this.setState({ form: "SIGN_IN_FORM" })}>
           Click here to sign in instead
