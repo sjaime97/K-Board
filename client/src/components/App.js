@@ -19,7 +19,7 @@ export default function App() {
 
         <Switch>
           <Route path="/board" component={TrelloBoardPage} />
-          <Route path="/sign-in" component={LoginPage} />
+          <Route path="/login" component={LoginPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <Route path="/confirm" component={ConfirmEmailPage} />
           <Route path="/" component={HomePage} />

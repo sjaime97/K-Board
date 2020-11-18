@@ -35,10 +35,7 @@ export default class SignUpPage extends Component {
                   <p className="forgot-password text-left">
                     {" "}
                     Already registered?
-                    <Link
-                      className="forgot-password text-right"
-                      to={"/sign-in"}
-                    >
+                    <Link className="forgot-password text-right" to={"/login"}>
                       {" "}
                       Click Here to sign in
                     </Link>
