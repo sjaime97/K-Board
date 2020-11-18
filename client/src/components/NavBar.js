@@ -1,7 +1,24 @@
 import React from "react";
+import { signOut } from "../actions";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "../aws-exports";
 
-export default function NavBar() {
+Amplify.configure(awsconfig);
+
+function NavBar(props) {
+  const { auth, dispatch } = props;
+
+  const handleLogout = async () => {
+    try {
+      await Auth.signOut();
+      dispatch(signOut());
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top">
       <div className="container">
@@ -16,23 +33,40 @@ export default function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to={"/login"}>
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to={"/sign-up"}>
-                Sign up
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to={"/board"}>
                 Demo
               </Link>
             </li>
+
+            {auth.isAuthenticated ? (
+              <li className="nav-item" onClick={handleLogout}>
+                <div className="nav-link" style={{ cursor: "pointer" }}>
+                  Logout
+                </div>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/login"}>
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/sign-up"}>
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
     </nav>
   );
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(NavBar);
