@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 
@@ -8,20 +8,27 @@ Amplify.configure(awsconfig);
 //This is the page that will prompt the user to enter a numeric code after signing up
 export default class ConfirmEmail extends Component {
   state = {
+    email: this.props.email,
     status: "",
     verficationCode: "",
   };
 
   handleVerificationCodeChange = (e) => {
     this.setState({ verficationCode: e.target.value });
-    console.log(this.state.verficationCode);
+  };
+
+  handleEmailChange = (e) => {
+    this.setState({ email: e.target.value });
   };
 
   handleResendCode = async () => {
-    const { email } = this.props;
+    if (!this.state.email) {
+      return;
+    }
+
     try {
-      console.log("Resending to: ", email);
-      await Auth.resendSignUp(email);
+      console.log("Resending to: ", this.state.email);
+      await Auth.resendSignUp(this.state.email.toLowerCase());
       console.log("code resent successfully");
     } catch (err) {
       console.log("error resending code: ", err);
@@ -31,10 +38,15 @@ export default class ConfirmEmail extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email } = this.props;
+    if (!this.state.email || !this.state.verficationCode) {
+      return;
+    }
 
     try {
-      const r = await Auth.confirmSignUp(email, this.state.verficationCode);
+      const r = await Auth.confirmSignUp(
+        this.state.email.toLowerCase(),
+        this.state.verficationCode
+      );
       console.log(r);
       this.setState({ status: "CODE_CONFIRMED" });
     } catch (error) {
@@ -45,15 +57,26 @@ export default class ConfirmEmail extends Component {
   render() {
     if (this.state.status === "CODE_CONFIRMED") {
       return <Redirect to="/login" />;
-    } else if (this.props.email === undefined) {
-      return <Redirect to="/sign-up" />;
     }
+
     return (
       <div className="design-page-styles">
         <div className="auth-wrapper">
           <div className="auth-inner">
             <form>
               <h3>Email Code Confirmation</h3>
+              {!this.props.email && (
+                <div className="form-group">
+                  <label>Email address</label>
+                  <input
+                    value={this.state.email}
+                    onChange={this.handleEmailChange}
+                    type="email"
+                    className="form-control"
+                    placeholder="Enter email"
+                  />
+                </div>
+              )}
               <div className="form-group">
                 <label>Enter code here</label>
                 <input
@@ -64,15 +87,30 @@ export default class ConfirmEmail extends Component {
                   placeholder="6 digit code"
                 />
               </div>
-              <ul>
+              <ul style={{ display: "flex", justifyContent: "space-between" }}>
                 <li className="nav-item">
-                  <div
-                    className="forgot-password text-left"
-                    style={{ cursor: "pointer" }}
-                    onClick={this.handleResendCode}
-                  >
-                    Resend code to email
-                  </div>
+                  <p className="forgot-password text-left">
+                    Need a new code? Enter email above then{" "}
+                    <a
+                      href="#confirm"
+                      style={{ cursor: "pointer" }}
+                      className="forgot-password text-left"
+                      onClick={this.handleResendCode}
+                    >
+                      Click Here
+                    </a>
+                  </p>
+                </li>
+                <li className="nav-item">
+                  <p className="forgot-password text-left">
+                    <a
+                      href="/sign-up"
+                      style={{ cursor: "pointer" }}
+                      className="forgot-password text-left"
+                    >
+                      Click here to go back to sign up
+                    </a>
+                  </p>
                 </li>
               </ul>
               <button
