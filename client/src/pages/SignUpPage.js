@@ -25,7 +25,6 @@ class SignUpPage extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { dispatch } = this.props;
 
     if (this.state.email === "" || this.state.password === "") {
       return;
@@ -83,7 +82,7 @@ class SignUpPage extends Component {
               >
                 Sign Up
               </button>
-              <ul>
+              <ul style={{ display: "flex", justifyContent: "space-between" }}>
                 <li className="nav-item">
                   <p className="forgot-password text-left">
                     {" "}
@@ -92,6 +91,19 @@ class SignUpPage extends Component {
                       {" "}
                       Click Here to sign in
                     </Link>
+                  </p>
+                </li>
+                <li className="nav-item">
+                  <p className="forgot-password text-left">
+                    Have a verification code?{" "}
+                    <a
+                      href="#confirm"
+                      style={{ cursor: "pointer" }}
+                      className="forgot-password text-left"
+                      onClick={() => this.setState({ status: "CONFIRM_EMAIL" })}
+                    >
+                      Click Here
+                    </a>
                   </p>
                 </li>
               </ul>
