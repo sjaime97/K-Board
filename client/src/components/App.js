@@ -7,7 +7,7 @@ import NavBar from "../components/NavBar";
 import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LoginPage";
 import HomePage from "../pages/HomePage";
-import TrelloBoardPage from "../pages/TrelloBoardPage";
+import DashboardPage from "../pages/DashboardPage";
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
         <NavBar />
 
         <Switch>
-          <Route path="/board" component={TrelloBoardPage} />
+          <Route path="/dashboard" component={DashboardPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <Route path="/" component={HomePage} />

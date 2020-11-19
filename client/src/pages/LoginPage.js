@@ -48,7 +48,7 @@ class LoginPage extends Component {
 
   render() {
     if (this.state.status === "LOGGED_IN") {
-      return <Redirect to="/board" />;
+      return <Redirect to="/dashboard" />;
     }
     return (
       <div className="design-page-styles">

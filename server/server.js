@@ -23,9 +23,7 @@ app.get("/boards", async (req, res) => {
     return res.status(404).send(`User id ${userID} does not have any boards`);
   }
 
-  return res.status(200).send({
-    boards: listOfBoardNames,
-  });
+  return res.status(200).send({ listOfBoardNames });
 });
 
 // Saves a board given the userID, boardID, and new data
