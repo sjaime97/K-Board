@@ -22,13 +22,10 @@ const listsReducer = (state = [], action) => {
 
       for (let list of state) {
         if (list.id === action.payload.listID) {
-          console.log("Target found!: ", list);
           list.cards.push(newCard);
           break;
         }
       }
-
-      console.log("Hi: ", [...state]);
 
       return [...state];
 
@@ -67,8 +64,6 @@ const listsReducer = (state = [], action) => {
     case CONSTANTS.DELETE_LIST:
       const targetListID = action.payload.listID;
 
-      console.log("Before: ", state);
-
       let targetIndex;
       for (let i = 0; i < state.length; i++) {
         if (state[i].id === targetListID) {
@@ -78,8 +73,6 @@ const listsReducer = (state = [], action) => {
       }
 
       state.splice(targetIndex, 1);
-
-      console.log("After: ", state);
 
       return [...state];
     default:

@@ -23,10 +23,8 @@ class DashboardPage extends Component {
     let response;
     try {
       response = await Auth.currentAuthenticatedUser();
-      console.log("Response: ", response);
       dispatch(signIn(response.username));
     } catch (error) {
-      console.log("E: ", error);
       dispatch(signOut());
       this.setState({ status: "done" });
       return;
@@ -37,15 +35,12 @@ class DashboardPage extends Component {
         `${apiURL}/boards?userID=${response.username}`
       );
 
-      console.log("Response from axios: ", data);
       this.setState({ listOfBoardNames: data.listOfBoardNames });
-      console.log("New list: ", this.state.listOfBoardNames);
     } catch (error) {
       console.log("Axios error: ", error);
     }
 
     this.setState({ status: "done" });
-    console.log("done!");
   }
 
   handleNewBoardTitleChange = (e) => {
@@ -60,8 +55,6 @@ class DashboardPage extends Component {
     }
 
     const { auth } = this.props;
-    console.log("click");
-    console.log("Creating new board with name: ", this.state.newBoardTitle);
 
     try {
       const { data } = await axios.post(`${apiURL}/board`, {
@@ -85,21 +78,9 @@ class DashboardPage extends Component {
     }
 
     if (!auth.isAuthenticated) {
-      // return <Redirect to="/login" />;
-      const msg = "Email confirmed! You may now login";
-      return (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { notificationMsg: msg },
-          }}
-        />
-      );
+      return <Redirect to="/login" />;
     }
 
-    // [{boardId, boardName}]
-    console.log("Rendering cards and stuff");
-    console.log("List to render: ", this.state.listOfBoardNames);
     return (
       <div style={styles.homeContainer}>
         {/* submit form to create new board*/}

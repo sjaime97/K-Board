@@ -35,12 +35,10 @@ class LoginPage extends Component {
 
   handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
-    console.log(this.state.email);
   };
 
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
-    console.log(this.state.password);
   };
 
   handleSubmit = async (e) => {
@@ -56,7 +54,6 @@ class LoginPage extends Component {
         this.state.email.toLowerCase(),
         this.state.password
       );
-      console.log(user);
       dispatch(signIn(user.username));
       this.setState({ status: "LOGGED_IN" });
     } catch (error) {

@@ -10,7 +10,6 @@ const TrelloList = (props) => {
   const { title, cards, listID, dispatch, saveStateOnDB } = props;
 
   const handleDelete = (listID) => {
-    console.log("Deleting: ", listID);
     dispatch(deleteList(listID));
     saveStateOnDB();
   };

@@ -29,7 +29,6 @@ class TrelloActionButton extends React.Component {
 
   handleAddList = () => {
     const { dispatch, saveStateOnDB } = this.props;
-    console.log("handle list: ", this.props);
     const { text } = this.state;
 
     if (text !== undefined && text !== "") {

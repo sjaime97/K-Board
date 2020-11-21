@@ -42,9 +42,7 @@ export default class ConfirmEmail extends Component {
     }
 
     try {
-      console.log("Resending to: ", this.state.email);
       await Auth.resendSignUp(this.state.email.toLowerCase());
-      console.log("code resent successfully");
     } catch (err) {
       console.log("error resending code: ", err);
     }
@@ -58,11 +56,10 @@ export default class ConfirmEmail extends Component {
     }
 
     try {
-      const r = await Auth.confirmSignUp(
+      await Auth.confirmSignUp(
         this.state.email.toLowerCase(),
         this.state.verficationCode
       );
-      console.log(r);
       this.setState({ status: "CODE_CONFIRMED" });
     } catch (error) {
       console.log("Error on confirming code", error);

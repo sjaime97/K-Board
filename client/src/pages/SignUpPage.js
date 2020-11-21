@@ -15,12 +15,10 @@ class SignUpPage extends Component {
 
   handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
-    console.log(this.state.email);
   };
 
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
-    console.log(this.state.password);
   };
 
   handleSubmit = async (e) => {
@@ -31,11 +29,7 @@ class SignUpPage extends Component {
     }
 
     try {
-      const user = await Auth.signUp(
-        this.state.email.toLowerCase(),
-        this.state.password
-      );
-      console.log(user);
+      await Auth.signUp(this.state.email.toLowerCase(), this.state.password);
       this.setState({ status: "CONFIRM_EMAIL" });
     } catch (error) {
       console.log(error);

@@ -34,14 +34,12 @@ function TrelloBoardPage(props) {
         const { data } = await axios.get(
           `${apiURL}/board?userID=${response.username}&boardID=${boardID}`
         );
-        console.log("Response from axios: ", data);
         dispatch(setListState(data.boardData));
         setBoardName(data.boardName);
         setStatus("done");
       } catch (error) {
         console.log("Axios error: ", error);
         setStatus("error");
-        console.log("not found");
       }
     }
     getBoard();
@@ -50,18 +48,14 @@ function TrelloBoardPage(props) {
 
   async function saveStateOnDB() {
     const { lists } = props;
-    console.log("I am gonna save: ", lists);
 
     setTimeout(async () => {
-      console.log("SAVING!");
       try {
-        const response = await axios.put(`${apiURL}/board`, {
+        await axios.put(`${apiURL}/board`, {
           userID: auth.userID,
           boardID: boardID,
           data: lists,
         });
-
-        console.log("Res: ", response);
       } catch (error) {
         console.log("Error on save: ", error);
       }
