@@ -1,6 +1,8 @@
 {
-    "resourceNameTruncated": "client8281aec2",
-    "userPoolName": "KBoardAuthPool",
+    "identityPoolName": "client7e350d14_identitypool_7e350d14",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "client7e350d14",
+    "userPoolName": "client7e350d14_userpool_7e350d14",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -26,11 +28,11 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "KBoard8281aec2_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "client7e350d14_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "8281aec2",
-    "resourceName": "KBoardAuth",
-    "authSelections": "userPoolOnly",
+    "sharedId": "7e350d14",
+    "resourceName": "client7e350d14",
+    "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -43,19 +45,11 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
+    "useDefault": "default",
     "usernameAttributes": [
         "email"
     ],
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "triggers": "{}",
-    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [],
     "dependsOn": []
 }

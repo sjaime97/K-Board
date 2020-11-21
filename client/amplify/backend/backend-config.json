@@ -1,6 +1,6 @@
 {
   "auth": {
-    "KBoardAuth": {
+    "client7e350d14": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
