@@ -17,6 +17,7 @@ function TrelloBoardPage(props) {
   const [status, setStatus] = useState("loading");
   const [boardName, setBoardName] = useState("");
 
+  /*eslint-disable */
   useEffect(() => {
     async function getBoard() {
       let response;
@@ -45,6 +46,7 @@ function TrelloBoardPage(props) {
     }
     getBoard();
   }, []);
+  /*eslint-enable */
 
   async function saveStateOnDB() {
     const { lists } = props;

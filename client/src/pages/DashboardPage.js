@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { signIn, signOut } from "../actions";
 import BoardCard from "../components/BoardCard";
 import axios from "axios";
