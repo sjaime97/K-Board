@@ -1,4 +1,3 @@
-const { AlexaForBusiness } = require("aws-sdk");
 const AWS = require("aws-sdk");
 
 AWS.config.update({
@@ -71,6 +70,43 @@ async function getListOfBoardNames(userID) {
   }
 }
 
+async function createBoard(userID, boardID, boardName) {
+  const newBoardTemplate = {
+    boardID: boardID,
+    boardName: boardName,
+    boardData: [],
+  };
+
+  let params = {
+    TableName: "UserBoards",
+    Key: {
+      userID: userID,
+    },
+  };
+
+  try {
+    // Query the "UserBoards" table to get user data
+    const data = await docClient.get(params).promise();
+    const { Item } = data;
+    const userBoards = Item.userBoards;
+    userBoards.push(newBoardTemplate);
+
+    params = {
+      TableName: "UserBoards",
+      Item: Item,
+    };
+    const response = await docClient.put(params).promise();
+
+    return "success";
+  } catch (error) {
+    console.log(
+      "Unable to read item. Error JSON:",
+      JSON.stringify(error, null, 2)
+    );
+    return "error";
+  }
+}
+
 async function updateBoardData(userID, boardID, newData) {
   let params = {
     TableName: "UserBoards",
@@ -118,4 +154,5 @@ module.exports = {
   getBoard,
   getListOfBoardNames,
   updateBoardData,
+  createBoard,
 };

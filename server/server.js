@@ -1,12 +1,17 @@
 const express = require("express");
 const app = express();
-const port = 5000;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dbClient = require("./dynamoDB");
+const { v4: uuidv4 } = require("uuid");
+const port = 5000;
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send("Hello World! The server is up and running!");
+});
 
 // Returns a list of boards given a userID
 app.get("/boards", async (req, res) => {
@@ -14,7 +19,7 @@ app.get("/boards", async (req, res) => {
 
   // Return error code if no userID was provided
   if (!userID) {
-    return res.status(400);
+    return res.sendStatus(400);
   }
 
   // Get list of board names
@@ -24,6 +29,26 @@ app.get("/boards", async (req, res) => {
   }
 
   return res.status(200).send({ listOfBoardNames });
+});
+
+app.post("/board", async (req, res) => {
+  const { userID, boardName } = req.body;
+
+  if (!userID || !boardName) {
+    return res.sendStatus(400);
+  }
+  const boardID = uuidv4();
+
+  const response = await dbClient.createBoard(userID, boardID, boardName);
+  if (response === "error") {
+    return res
+      .status(404)
+      .send(
+        `Could not create a new board under user id: ${userID} with boardName: ${boardName}`
+      );
+  }
+
+  return res.status(201).send({ boardID: boardID, boardName: boardName });
 });
 
 // Saves a board given the userID, boardID, and new data
