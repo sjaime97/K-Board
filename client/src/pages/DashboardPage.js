@@ -6,6 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import { signIn, signOut } from "../actions";
 import BoardCard from "../components/BoardCard";
 import axios from "axios";
+import apiURL from "../constants/apiURL";
 
 Amplify.configure(awsconfig);
 
@@ -33,7 +34,7 @@ class DashboardPage extends Component {
 
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/boards?userID=${response.username}`
+        `${apiURL}/boards?userID=${response.username}`
       );
 
       console.log("Response from axios: ", data);
@@ -53,9 +54,27 @@ class DashboardPage extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!this.state.newBoardTitle) {
+      return;
+    }
+
+    const { auth } = this.props;
     console.log("click");
-    // Make a post request to create a new board
-    // pass in {this.state.newBoardTitle, userID } in the body
+    console.log("Creating new board with name: ", this.state.newBoardTitle);
+
+    try {
+      const { data } = await axios.post(`${apiURL}/board`, {
+        userID: auth.userID,
+        boardName: this.state.newBoardTitle,
+      });
+      this.setState({
+        listOfBoardNames: [...this.state.listOfBoardNames, data],
+        newBoardTitle: "",
+      });
+    } catch (error) {
+      console.log("Error on creating board", error);
+    }
   };
 
   render() {
@@ -74,6 +93,19 @@ class DashboardPage extends Component {
     console.log("List to render: ", this.state.listOfBoardNames);
     return (
       <div style={styles.homeContainer}>
+        {/* submit form to create new board*/}
+        <form style={{ textAlign: "center" }}>
+          <input
+            style={styles.createInput}
+            onChange={this.handleNewBoardTitleChange}
+            value={this.state.newBoardTitle}
+            placeholder="Enter New Board Name Here"
+            type="text"
+          />
+          <button className="board-home" onClick={this.handleSubmit}>
+            Submit
+          </button>
+        </form>
         <div style={styles.thumbnails}>
           {/* Iterate through boards and create a card for each */}
           {this.state.listOfBoardNames.length === 0 && (
@@ -88,20 +120,6 @@ class DashboardPage extends Component {
               />
             );
           })}
-          {/* submit form to create new board*/}
-          <form style={{ textAlign: "center" }}>
-            Create a new board
-            <div
-              style={styles.createInput}
-              onChange={this.handleNewBoardTitleChange}
-              value={this.state.newBoardTitle}
-              placeholder="Enter New Board Name Here"
-              type="text"
-            />
-            <button className="board-home" onClick={this.handleSubmit}>
-              Submit
-            </button>
-          </form>
         </div>
       </div>
     );
