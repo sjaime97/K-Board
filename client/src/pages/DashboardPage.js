@@ -85,7 +85,16 @@ class DashboardPage extends Component {
     }
 
     if (!auth.isAuthenticated) {
-      return <Redirect to="/login" />;
+      // return <Redirect to="/login" />;
+      const msg = "Email confirmed! You may now login";
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { notificationMsg: msg },
+          }}
+        />
+      );
     }
 
     // [{boardId, boardName}]

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 
@@ -12,6 +13,20 @@ export default class ConfirmEmail extends Component {
     status: "",
     verficationCode: "",
   };
+
+  componentDidMount() {
+    // Display msg using toast library
+    const { notificationMsg } = this.props;
+    toast.info(notificationMsg, {
+      position: "top-center",
+      autoClose: 10000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
 
   handleVerificationCodeChange = (e) => {
     this.setState({ verficationCode: e.target.value });
@@ -56,7 +71,15 @@ export default class ConfirmEmail extends Component {
 
   render() {
     if (this.state.status === "CODE_CONFIRMED") {
-      return <Redirect to="/login" />;
+      const msg = "Email confirmed! You may now login";
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { notificationMsg: msg },
+          }}
+        />
+      );
     }
 
     return (

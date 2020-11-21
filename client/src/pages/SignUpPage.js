@@ -44,7 +44,13 @@ class SignUpPage extends Component {
 
   render() {
     if (this.state.status === "CONFIRM_EMAIL") {
-      return <ConfirmEmail email={this.state.email.toLowerCase()} />;
+      const msg = "Check your email for a code to confirm your account!";
+      return (
+        <ConfirmEmail
+          email={this.state.email.toLowerCase()}
+          notificationMsg={msg}
+        />
+      );
     }
 
     return (

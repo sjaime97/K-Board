@@ -4,6 +4,7 @@ import { signIn } from "../actions";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import { Link, Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 
 Amplify.configure(awsconfig);
 
@@ -14,6 +15,23 @@ class LoginPage extends Component {
     password: "",
     status: "",
   };
+
+  componentDidMount() {
+    // If passed in a notification message, use toast to
+    // display it
+    if (this.props.location.state) {
+      const { notificationMsg } = this.props.location.state;
+      toast.success(notificationMsg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
 
   handleEmailChange = (e) => {
     this.setState({ email: e.target.value });

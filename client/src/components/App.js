@@ -2,6 +2,8 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../index.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import NavBar from "../components/NavBar";
 import SignUpPage from "../pages/SignUpPage";
@@ -16,6 +18,17 @@ export default function App() {
       <div className="App">
         {/*Header code*/}
         <NavBar />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
         <Switch>
           <Route path="/board/:boardID" component={TrelloBoardPage} />
