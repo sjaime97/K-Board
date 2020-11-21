@@ -1,10 +1,18 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const BoardThumbnail = (props) => {
+  const history = useHistory();
   const { title, id } = props;
-  console.log(title);
+
+  const handleBoardClick = (e) => {
+    history.push({
+      pathname: `/board/${id}`,
+    });
+  };
+
   return (
-    <div style={styles.thumbnail}>
+    <div style={styles.thumbnail} onClick={handleBoardClick}>
       <div style={styles.title}>{title}</div>
     </div>
   );

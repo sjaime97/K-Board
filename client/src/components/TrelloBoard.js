@@ -4,18 +4,18 @@ import { connect } from "react-redux";
 import TrelloActionButton from "./TrelloActionButton";
 import { DragDropContext } from "react-beautiful-dnd";
 import { sort } from "../actions";
-//import AuthForm from "./AuthForm";
 
 class TrelloBoard extends Component {
   onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
+    const { saveStateOnDB, dispatch } = this.props;
 
     // If destination ended up at a non-droppable location
     if (!destination) {
       return;
     }
 
-    this.props.dispatch(
+    dispatch(
       sort(
         source.droppableId,
         destination.droppableId,
@@ -24,18 +24,16 @@ class TrelloBoard extends Component {
         draggableId
       )
     );
+
+    saveStateOnDB();
   };
 
-  //   testAuthForm = () => {
-  //     return <AuthForm />;
-  //   };
-
   render() {
-    const { lists } = this.props;
+    const { lists, title, saveStateOnDB } = this.props;
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <div>
-          <h1 style={styles.boardTitle}>Web Development Tasks</h1>
+        <div style={{ marginTop: "60px" }}>
+          <h1 style={styles.boardTitle}>{title}</h1>
           <div style={styles.listContainer}>
             {lists.map((list) => (
               <TrelloList
@@ -43,9 +41,10 @@ class TrelloBoard extends Component {
                 key={list.id}
                 title={list.title}
                 cards={list.cards}
+                saveStateOnDB={saveStateOnDB}
               />
             ))}
-            <TrelloActionButton list />
+            <TrelloActionButton list saveStateOnDB={saveStateOnDB} />
           </div>
         </div>
       </DragDropContext>
@@ -64,6 +63,7 @@ const styles = {
 
 const mapStateToProps = (state) => ({
   lists: state.lists,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(TrelloBoard);

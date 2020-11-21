@@ -1,4 +1,12 @@
 import { CONSTANTS } from "../actions";
+
+export const setListState = (boardData) => {
+  return {
+    type: CONSTANTS.SET_LIST_STATE,
+    payload: { boardData },
+  };
+};
+
 export const addList = (title) => {
   return {
     type: CONSTANTS.ADD_LIST,

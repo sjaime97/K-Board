@@ -1,47 +1,90 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { Redirect, useParams } from "react-router-dom";
+import { signIn, signOut, setListState } from "../actions";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { signIn, signOut } from "../actions";
 import TrelloBoard from "../components/TrelloBoard";
+import apiURL from "../constants/apiURL";
 
 Amplify.configure(awsconfig);
 
-class TrelloBoardPage extends Component {
-  state = {
-    status: "loading",
-  };
+// /board/:boardID
+function TrelloBoardPage(props) {
+  const { auth, dispatch } = props;
+  const { boardID } = useParams();
+  const [status, setStatus] = useState("loading");
+  const [boardName, setBoardName] = useState("");
 
-  async componentDidMount() {
-    const { dispatch } = this.props;
-    try {
-      const response = await Auth.currentAuthenticatedUser();
-      console.log("Response: ", response);
-      dispatch(signIn(response.username));
-    } catch (error) {
-      console.log("E: ", error);
-      dispatch(signOut());
+  useEffect(() => {
+    async function getBoard() {
+      let response;
+      try {
+        response = await Auth.currentAuthenticatedUser();
+        dispatch(signIn(response.username));
+      } catch (error) {
+        dispatch(signOut());
+        setStatus("done");
+        return;
+      }
+
+      try {
+        const { data } = await axios.get(
+          `${apiURL}/board?userID=${response.username}&boardID=${boardID}`
+        );
+        console.log("Response from axios: ", data);
+        dispatch(setListState(data.boardData));
+        setBoardName(data.boardName);
+        setStatus("done");
+      } catch (error) {
+        console.log("Axios error: ", error);
+        setStatus("error");
+        console.log("not found");
+      }
     }
-    this.setState({ status: "done" });
+    getBoard();
+  }, []);
+
+  async function saveStateOnDB() {
+    const { lists } = props;
+    console.log("I am gonna save: ", lists);
+
+    setTimeout(async () => {
+      console.log("SAVING!");
+      try {
+        const response = await axios.put(`${apiURL}/board`, {
+          userID: auth.userID,
+          boardID: boardID,
+          data: lists,
+        });
+
+        console.log("Res: ", response);
+      } catch (error) {
+        console.log("Error on save: ", error);
+      }
+    }, 1000);
   }
 
-  render() {
-    const { auth } = this.props;
-
-    if (this.state.status === "loading") {
-      return <span>Loading...</span>;
-    }
-
-    return (
-      <div>
-        {!auth.isAuthenticated ? <Redirect to="/login" /> : <TrelloBoard />}
-      </div>
-    );
+  if (status === "loading") {
+    return <span>Loading...</span>;
   }
+
+  if (!auth.isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
+
+  if (status === "error") {
+    return <span>404 board not found</span>;
+  }
+
+  return (
+    <TrelloBoard title={boardName} id={boardID} saveStateOnDB={saveStateOnDB} />
+  );
 }
 
 const mapStateToProps = (state) => ({
+  lists: state.lists,
   auth: state.auth,
 });
 

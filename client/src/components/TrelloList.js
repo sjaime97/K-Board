@@ -7,11 +7,12 @@ import { connect } from "react-redux";
 import { deleteList } from "../actions";
 
 const TrelloList = (props) => {
-  const { title, cards, listID, dispatch } = props;
+  const { title, cards, listID, dispatch, saveStateOnDB } = props;
 
   const handleDelete = (listID) => {
     console.log("Deleting: ", listID);
     dispatch(deleteList(listID));
+    saveStateOnDB();
   };
 
   return (
@@ -40,7 +41,7 @@ const TrelloList = (props) => {
             />
           ))}
           {provided.placeholder}
-          <TrelloActionButton listID={listID} />
+          <TrelloActionButton listID={listID} saveStateOnDB={saveStateOnDB} />
         </div>
       )}
     </Droppable>
