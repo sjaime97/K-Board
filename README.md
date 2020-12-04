@@ -13,12 +13,21 @@ Users can create boards for projects and create lists based on the project needs
 <img src="https://i.imgur.com/BtxhFrk.png" alt="Login" />
 <img src="https://i.imgur.com/BBjxUzF.png" alt="Dashboard" />
 <img src="https://i.imgur.com/I2g36RE.png" alt="K-Board" />
-                                                         
-
 
 ## 3-Tier Architecture
 <img src="https://i.imgur.com/cCUvtqG.png" alt="Diagram" />
 
 ## Folder Structure 
 ## How to Run Locally 
+## System Diagram 
+<img src="https://i.imgur.com/pvmuYpE.png" alt="System-Diagram" />
 
+## Sequence Diagram 
+<img src="https://i.imgur.com/3XWlAKh.png" alt="Sequence" />
+
+
+## DB Schema
+<img src="https://i.imgur.com/KAYpX44.png" alt="DB-Schema" />
+
+## API End Points 
+<img src="https://i.imgur.com/And2QqY.png" alt="DB-Schema" />
