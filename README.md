@@ -11,7 +11,9 @@ Users can create boards for projects and create lists based on the project needs
 ## Demo Screenshots 
 <img src="https://i.imgur.com/Grm2WmO.png" alt="Diagram" />
 <img src="https://i.imgur.com/BtxhFrk.png" alt="Login" />
-<img src=https://i.imgur.com/BBjxUzF.png" alt ="Dashboard" />
+<img src="https://i.imgur.com/BBjxUzF.png" alt="Dashboard" />
+<img src="https://i.imgur.com/I2g36RE.png" alt="K-Board" />
+                                                         
 
 
 ## 3-Tier Architecture
