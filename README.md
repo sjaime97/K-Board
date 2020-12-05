@@ -16,12 +16,13 @@ Users can create boards for projects and create lists based on the project needs
 
 ## Folder Structure 
 Source code is organized as follows: <br/>
-* Front-End <br/>
+* Client (Frontend code) <br/>
   * HTML, CSS, JS Code <br/>
-* Backend <br/>
+  * React+Redux <br/>
+* Server (Backend code) <br/>
   * Node code <br/>
+  * Express.js API <br/>
 * Scripts <br/>
-  * DB Schema <br/>
   * Docker build script <br/>
 * Readme
 
