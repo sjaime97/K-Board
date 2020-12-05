@@ -22,3 +22,4 @@ COPY ./dynamoDB.js ./
 # Run the web service on container startup.
 EXPOSE 5000
 CMD [ "node", "server.js" ]
+
