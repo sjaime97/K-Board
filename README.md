@@ -1,8 +1,8 @@
 # K-Board
 _San Jose State University_ <br />
-Class: CMPE 172 - Enterprise Software <br />
-Fall 2020 <br />
-Team Members: Francisco Ibarra, Nathan Abegaz, Samantha Jaime <br />
+_Class: CMPE 172 - Enterprise Software_ <br />
+_Fall 2020_ <br />
+_Team Members: Francisco Ibarra, Nathan Abegaz, Samantha Jaime_ <br />
 
 K-Board is a project management web application that allows users to visually organize project tasks. It is a Kanban-style list-making web application similar to solutions like Trello or Jira. K-board was implmented in a three-tier architechtire model for better development flexibility. <br />
 
