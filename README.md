@@ -1,8 +1,8 @@
 # K-Board
-_San Jose State University_ <br />
-_Class: CMPE 172 - Enterprise Software_ <br />
-_Fall 2020_ <br />
-_Team Members: Francisco Ibarra, Nathan Abegaz, Samantha Jaime_ <br />
+San Jose State University <br />
+Class: CMPE 172 - Enterprise Software <br />
+Fall 2020 <br />
+Team Members: Francisco Ibarra, Nathan Abegaz, Samantha Jaime <br />
 
 K-Board is a project management web application that allows users to visually organize project tasks. It is a Kanban-style list-making web application similar to solutions like Trello or Jira. K-board was implmented in a three-tier architechtire model for better development flexibility. <br />
 
@@ -30,11 +30,35 @@ Source code is organized as follows: <br/>
 
 ## How to Run Locally 
 
+Clone this repository by doing:
+```
+git clone https://github.com/Francisco-Ibarra07/K-Board.git
+```
+
+`cd` into the `client` folder and run `npm install`
+- This will install all frontend dependencies
+
+`cd` into the `server` folder and run `npm install`
+- This will install all of the API dependencies
+
+To run the frontend, do:
+```
+npm start
+```
+inside the `client` folder
+
+To run the backend, do:
+```
+node server.js
+```
+inside the `server` folder
+
 ## System Diagram 
 <img src="https://i.imgur.com/pvmuYpE.png" alt="System-Diagram" />
 
 ## Sequence Diagram 
 <img src="https://i.imgur.com/3XWlAKh.png" alt="Sequence" />
+
 
 ## DB Schema
 <img src="https://i.imgur.com/KAYpX44.png" alt="DB-Schema" />
