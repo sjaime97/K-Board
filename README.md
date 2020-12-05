@@ -14,9 +14,6 @@ Users can create boards for projects and create lists based on the project needs
 <img src="https://i.imgur.com/BBjxUzF.png" alt="Dashboard" />
 <img src="https://i.imgur.com/I2g36RE.png" alt="K-Board" />
 
-## 3-Tier Architecture
-<img src="https://i.imgur.com/cCUvtqG.png" alt="Diagram" />
-
 ## Folder Structure 
 Source code is organized as follows: <br/>
 * Front-End <br/>
