@@ -16,9 +16,9 @@ Users can create boards for projects and create lists based on the project needs
 
 ## Folder Structure 
 Source code is organized as follows: <br/>
-* Front-End <br/>
+* Client (Front-End) <br/>
   * HTML, CSS, JS Code <br/>
-* Backend <br/>
+* Server (Backend) <br/>
   * Node code <br/>
 * Scripts <br/>
   * DB Schema <br/>
