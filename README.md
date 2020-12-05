@@ -1,5 +1,5 @@
 # K-Board
-San Jose State University <br />
+_San Jose State University_ <br />
 Class: CMPE 172 - Enterprise Software <br />
 Fall 2020 <br />
 Team Members: Francisco Ibarra, Nathan Abegaz, Samantha Jaime <br />
@@ -29,12 +29,12 @@ Source code is organized as follows: <br/>
 * Readme
 
 ## How to Run Locally 
+
 ## System Diagram 
 <img src="https://i.imgur.com/pvmuYpE.png" alt="System-Diagram" />
 
 ## Sequence Diagram 
 <img src="https://i.imgur.com/3XWlAKh.png" alt="Sequence" />
-
 
 ## DB Schema
 <img src="https://i.imgur.com/KAYpX44.png" alt="DB-Schema" />
