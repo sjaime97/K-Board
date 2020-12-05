@@ -18,6 +18,16 @@ Users can create boards for projects and create lists based on the project needs
 <img src="https://i.imgur.com/cCUvtqG.png" alt="Diagram" />
 
 ## Folder Structure 
+Source code is organized as follows: <br/>
+* Front-End <br/>
+  * HTML, CSS, JS Code <br/>
+* Backend <br/>
+  * Node code <br/>
+* Scripts <br/>
+  * DB Schema <br/>
+  * Docker build script <br/>
+* Readme
+
 ## How to Run Locally 
 ## System Diagram 
 <img src="https://i.imgur.com/pvmuYpE.png" alt="System-Diagram" />
@@ -30,4 +40,4 @@ Users can create boards for projects and create lists based on the project needs
 <img src="https://i.imgur.com/KAYpX44.png" alt="DB-Schema" />
 
 ## API End Points 
-<img src="https://i.imgur.com/And2QqY.png" alt="DB-Schema" />
+<img src="https://i.imgur.com/And2QqY.png" alt="end-points" />
